@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 
+import {useRouter} from 'next/router'
+
 function MainNavigation() {
+  const router = useRouter();
+
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
@@ -11,8 +15,9 @@ function MainNavigation() {
 
 
   return (
-    <div className='relative bg-black bg-opacity-50 z-10'>
-    <header className="text-white flex flex-row justify-between w-10/12 m-auto py-4">
+   
+    <div className={router.pathname == "/" ? "relative text-white bg-black bg-opacity-50 z-10" : "relative bg-white text-black drop-shadow-sm"}>
+    <header className="flex flex-row justify-between w-10/12 m-auto py-4">
       <Link href='/'>
         <a>
           <div className="">EV Charging</div>
