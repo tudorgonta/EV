@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
-import classes from './main-navigation.module.css';
-
 
 function MainNavigation() {
   const { data: session, status } = useSession();
@@ -13,14 +11,15 @@ function MainNavigation() {
 
 
   return (
-    <header className={classes.header}>
+    <div className='relative bg-black bg-opacity-50 z-10'>
+    <header className="text-white flex flex-row justify-between w-10/12 m-auto py-4">
       <Link href='/'>
         <a>
-          <div className={classes.logo}>Next Auth</div>
+          <div className="">EV Charging</div>
         </a>
       </Link>
       <nav>
-        <ul>
+        <ul className='flex flex-row'>
           {!session && !loading && (
             <li>
               <Link href='/auth'>Login</Link>
@@ -32,18 +31,19 @@ function MainNavigation() {
             </li>
           )}
           {session && session.user.role === "Admin" && (
-            <li>
+            <li className='pl-5'>
               <Link href='/admin'>Admin</Link>
             </li>
           )}
           {session && (
-            <li>
+            <li className='pl-5'>
               <button onClick={logoutHandler}>Logout</button>
             </li>
           )}
         </ul>
       </nav>
     </header>
+    </div>
   );
 }
 

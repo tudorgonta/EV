@@ -1,7 +1,12 @@
 import { getSession } from 'next-auth/react';
 
 function ProfilePage() {
-  return <>Welcome to the Admin Page</>;
+  return (
+  <>
+    Welcome to the Admin Page
+
+  </>
+  );
 }
 
 export async function getServerSideProps(context) {
