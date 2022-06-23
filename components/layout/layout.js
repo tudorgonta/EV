@@ -11,7 +11,7 @@ function Layout(props) {
       {router.pathname.includes('/admin') ? (
        <div className="flex">
           <AdminNavigation />
-          <main className="w-1/2 mx-auto my-12">{props.children}</main>
+          <main className="w-10/12 ml-72 mr-16 my-12">{props.children}</main>
         </div>
         ) : (
         <>

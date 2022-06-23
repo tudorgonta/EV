@@ -20,7 +20,7 @@ function MainNavigation() {
     <header className="flex flex-row justify-between w-10/12 m-auto py-4">
       <Link href='/'>
         <a className=''>
-          <div className="font-semibold">EV Charging</div>
+          <div className="font-semibold">Viorel Krasavcic</div>
         </a>
       </Link>
       <nav>

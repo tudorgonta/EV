@@ -4,37 +4,35 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 function ProfilePage({session, data}) {
+
     const router = useRouter();
     const [confirm, setConfirm] = useState(false);
     const edit = () => setConfirm(true);
     const noEdit = () => setConfirm(false);
     const dat =  data.data
+
     const submitContact = async (event) => {
+      event.preventDefault()
       if(confirm) {
-        try {
-          const res = await fetch(`http://localhost:3000/api/adm/users/${router.query.id}`, {
-              method: 'PUT',
-              headers: {
-                  "Accept": "application/json",
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify(event.target.name.value)
-          })
-          router.push("/admin/users");
-        } catch (error) {
-            router.push("/");
-        }
+        await fetch(`http://localhost:3000/api/adm/users/${router.query.id}`, {
+            method: 'PUT',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(event.target.name.value)
+        }).then((res) =>{
+          if(res.ok) router.push('/admin/users')
+        })
       } else {
-        try {
-          const res = await fetch(`http://localhost:3000/api/adm/users/${router.query.id}`, {
-              method: 'DELETE'
-          })
-          router.push("/admin/users");
-        } catch (error) {
-            router.push("/");
-        }
+        await fetch(`http://localhost:3000/api/adm/users/${router.query.id}`, {
+            method: 'DELETE'
+        }).then((res) => {
+          if(res.ok) router.push("/admin/users")
+        })
       }
-    };
+    }
+
   return (
     <>
     {dat != null ? (

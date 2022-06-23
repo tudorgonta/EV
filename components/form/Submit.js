@@ -16,7 +16,6 @@ async function createForm(dat) {
     return data;
   }
 
-
 function Submit(props) {
   const { data, handleChange, back } = props;
   async function submitHandler() {
@@ -55,7 +54,7 @@ function Submit(props) {
         <form onSubmit={submitHandler}>
           <div className="flex-row mt-5">
             <button onClick={back} className="w-1/3 py-2 px-2 text-white rounded disabled:bg-gray-500 hover:bg-gray-600 bg-gray-700 mt-5 transition-opacity mr-5">Back</button> 
-            <button type="submit" className="w-1/3 py-2 px-2 text-white rounded disabled:bg-gray-500 hover:bg-gray-600 bg-gray-700 mt-5 transition-opacity">Next</button>
+            <button type="submit" className="w-1/3 py-2 px-2 text-white rounded disabled:bg-gray-500 hover:bg-gray-600 bg-gray-700 mt-5 transition-opacity">Submit</button>
           </div>
         </form>
     </div>

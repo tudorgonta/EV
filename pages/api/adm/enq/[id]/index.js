@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import { connectToDatabase } from '../../../../lib/db';
+import { connectToDatabase } from '../../../../../lib/db';
 import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         return;
     }
 
-    const { id } = await req.query
+    const { id } = req.query
     const o_id = new ObjectId(id)
 
     const client = await connectToDatabase();
@@ -20,37 +20,42 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const user = await db.collection('users').findOne({_id: o_id});
+                const user = await db.collection('enq').findOne({_id: o_id});
                 const data = JSON.parse(JSON.stringify(user))
+
+                client.close();
                 res.status(200).json({ success: true, data: data })
             } catch (error) {
-                console.log(error)
                 res.status(400).json({ success: false });
             }
             break;
         case 'PUT':
             try {
-                const mail = await req.body
-                await db.collection('users').updateOne(
+                const email = req.body.email
+                const name = req.body.name
+                await db.collection('enq').updateOne(
                     {_id: o_id},
-                    { $set: { email: mail } }
-                    );
-                res.status(200).json({ success: true });
-            } catch(error) {
-                res.status(400).json({ success: false });
-            }
-            break;
-        case 'DELETE':
-            try {
-                await db.collection('users').deleteOne(
-                    {_id: o_id}
+                    { $set: { 
+                        email: email,
+                        name: name,
+                    } }
                     );
                 client.close();
-                res.status(200)
+                res.status(200).json({ success: true })
             } catch (error) {
                 res.status(400).json({ success: false });
             }
-            break;
+            break; 
+        case 'DELETE':
+            try {
+                await db.collection('enq').deleteOne(
+                    {_id: o_id}
+                    );
+                res.status(200).json({ success: true })
+                return { props: {} };
+            }catch(error) {
+                res.status(400).json({ success: false })
+            }
         default:
             res.status(400).json({ success: false });
             break;

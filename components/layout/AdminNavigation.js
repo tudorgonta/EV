@@ -12,12 +12,12 @@ function AdminNavigation() {
 
   return (
     <div className=''>
-        <aside className="w-56 fixed left-0 top-0 h-screen bg-gray-50 shadow-xl border-r border-gray-100 px-3 py-1">
+        <aside className="w-56 fixed left-0 top-0 h-screen bg-gray-50/[0.8] shadow px-3 py-1">
             <div className='w-10/12 m-auto my-3'>
                 <Link href="/admin">
                     <a className="text-lg font-semibold hover:opacity-70">EV - Dashboard</a>
                 </Link>
-                <hr className='border-bottom border-solid border-gray-300 my-3'></hr>
+                <hr className='border-b-2 rounded border-solid border-gray-300/[0.5] my-3'></hr>
                 <div className='flex flex-col text-lg'>
                     <Link href="/">
                         <a className="hover:opacity-70">Home</a>
@@ -29,7 +29,7 @@ function AdminNavigation() {
                         <a className="hover:opacity-70">Enquiries</a>
                     </Link>
                 </div>
-                <hr className='border-top border-solid border-gray-300 my-3'></hr>
+                <hr className='border-top rounded border-solid border-gray-300/[0.5] my-3'></hr>
                 <div className='flex flex-col text-md'>
                     <Link href="/admin/profile"><a className='hover:opacity-70'>Profile</a></Link>
                     <button onClick={logoutHandler} className="text-left hover:opacity-70">Logout</button>

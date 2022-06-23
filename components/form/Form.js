@@ -16,6 +16,7 @@ const Form = ({dat}) => {
     car: "",    
     brand: "",
     mob: "",
+    status: "REC",
   });
 
   const handleChange = (event) => {
