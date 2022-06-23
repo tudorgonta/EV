@@ -4,7 +4,6 @@ function ProfilePage() {
   return (
   <>
     Welcome to the Admin Page
-
   </>
   );
 }
