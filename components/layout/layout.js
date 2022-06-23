@@ -16,7 +16,7 @@ function Layout(props) {
         ) : (
         <>
           <MainNavigation />
-          <main>{props.children}</main>
+          <main className='w-10/12 mx-auto my-0'>{props.children}</main>
         </>
       )
       }

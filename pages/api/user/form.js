@@ -1,4 +1,3 @@
-import { hashPassword } from '../../../lib/auth';
 import { connectToDatabase } from '../../../lib/db';
 
 async function handler(req, res) {
@@ -7,13 +6,12 @@ async function handler(req, res) {
   }
 
   const data = req.body;
-
-  const { email, password } = data;
+  
+  const { email, name, street, city, postcode, comments, car, brand , mob } = data;
 
   if (
     !email ||
-    !email.includes('@') ||
-    !password
+    !email.includes('@')
   ) {
     res.status(422).json({
       message:
@@ -27,8 +25,15 @@ async function handler(req, res) {
   const db = client.db();
 
   const result = await db.collection('enq').insertOne({
+    name: name,
     email: email,
-    message: password,
+    street: street,
+    city: city,
+    postcode: postcode,
+    comments: comments,
+    car: car,
+    brand: brand,
+    mob: mob,
   });
 
   res.status(201).json({ message: 'Created enq!' });

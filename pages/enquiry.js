@@ -1,64 +1,28 @@
-import { useRef } from 'react';
+import Form from '../components/form/Form'
 
-async function createForm(email, password) {
-  const response = await fetch('/api/user/form', {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
+function AuthForm({dat}) {
+  return (
+    <section className="flex flex-col text-center mt-10">
+      <Form dat={dat} />
+    </section>
+  );
+}
+
+export async function getServerSideProps(context) {
+
+  const res = await fetch('http://localhost:3000/api/user/cars',{
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      cookie: context.req.headers.cookie,
     },
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong!');
-  }
-
-  return data;
-}
-
-function AuthForm() {
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-
-  async function submitHandler(event) {
-    event.preventDefault();
-
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-
-      try {
-        const result = await createForm(enteredEmail, enteredPassword);
-        console.log(result);
-      } catch (error) {
-        console.log(error);
-      }
-  }
-
-  return (
-    <section className="">
-      <h1>Create Form: </h1>
-      <form onSubmit={submitHandler}>
-        <div className="">
-          <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required ref={emailInputRef} />
-        </div>
-        <div className="">
-          <label htmlFor='password'>Your Name</label>
-          <input
-            type='text'
-            id='password'
-            required
-            ref={passwordInputRef}
-          />
-        </div>
-        <div className="">
-          <button>Submit</button>
-        </div>
-      </form>
-    </section>
-  );
+  const data = await res.json()
+  const dat = data.data
+  return {
+    props: { dat },
+  };
 }
 
 export default AuthForm;

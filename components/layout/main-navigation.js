@@ -19,8 +19,8 @@ function MainNavigation() {
     <div className={router.pathname == "/" ? "relative text-white bg-black bg-opacity-50 z-10" : "relative bg-white text-black drop-shadow-sm"}>
     <header className="flex flex-row justify-between w-10/12 m-auto py-4">
       <Link href='/'>
-        <a>
-          <div className="">EV Charging</div>
+        <a className=''>
+          <div className="font-semibold">EV Charging</div>
         </a>
       </Link>
       <nav>
