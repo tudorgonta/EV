@@ -59,7 +59,7 @@ const Step1 = (props) => {
         <h2 className='mb-10 text-left text-xl'>Please tell us about your vehicle, so we can check if you may be eligible for a grant to reduce the cost of your home charger</h2>
         <h3 className='text-left text-lg mb-5'>Select your vehicle</h3>
         <label htmlFor="cars" className='text-left ml-3 mb-2 text-sm'>What car do you drive?</label>
-        <select value={selected} onChange={handleFirst} className="p-2 px-3 border rounded-sm">
+        <select value={selected} onChange={handleFirst} className="p-2 px-3 border rounded-sm select1">
           <option value="" className="text-left">Please choose your car brand</option>
           {brands.map(option => (
             <option key={option} value={option} className="text-left">
@@ -70,7 +70,7 @@ const Step1 = (props) => {
         {selected &&
           <>
           <label htmlFor="cars" className='text-left ml-3 mt-4 mb-2 text-sm'>What is your car model?</label>
-            <select value={second} onChange={handleSecond} className="p-2 px-3 border rounded-sm">
+            <select value={second} onChange={handleSecond} className="p-2 px-3 border rounded-sm select1">
               <option value="" className="text-left">Please choose your car model</option>
               {dat.map(option => {
                 if(option.brand === selected) {

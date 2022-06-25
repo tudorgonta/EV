@@ -4,9 +4,16 @@ import Link from 'next/link';
 
 import {AiOutlineRight} from 'react-icons/ai'
 
-
 function ProfilePage({ data}) {
+
   const router = useRouter()
+  const status = ['REC', 'PAID', 'INP', 'CPL']
+  for( var i = 0; i < status.length; i++){                             
+    if ( status[i] == data.status) { 
+        status.splice(i, 1); 
+        i--; 
+    }
+  }
 
   async function handleClick(data) {
     await fetch(`http://localhost:3000/api/adm/enq/${data}`, {
@@ -16,17 +23,37 @@ function ProfilePage({ data}) {
     })
   }
 
-  /*
-          <p>Name: {data.name}</p>
-          <p>Email: {data.email}</p>
-          <p>Mobile number: {data.mob}</p>
-          <p>Street: {data.street}</p>
-          <p>City: {data.city}</p>
-          <p>Postcode: {data.postcode}</p>
-          <p>Car Model: {data.car}</p>
-          <p>Car Brand: {data.brand}</p>
-  */
+  const handleStatus = async event => {
+    handleSelect(data._id, event.target.value)
+  };
 
+  async function handleSelect(id, data) {
+    await fetch(`http://localhost:3000/api/adm/enq/${id}/status`, {
+      method: 'PUT',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      } ,
+      body: JSON.stringify(data)
+    }).then((res) => {
+      if(res.ok) router.push("/admin/enq/"+id)
+    })
+  }
+
+  function dat(data){
+    switch(data) {
+      case 'REC':
+        return 'Recieved'
+      case 'PAID':
+        return 'Paid'
+      case 'INP':
+        return 'In Progress'
+      case 'CPL':
+        return 'Completed'
+      default:
+        return 'No State'
+    }
+}
   return (
     <>
       <div className='BREADCRUMBS my-8 ml-10 opacity-75 text-gray-700'>
@@ -38,22 +65,33 @@ function ProfilePage({ data}) {
           <p className='font-medium'>View Enquiry</p>
         </div>
       </div>
+      <div className='flex flex-row justify-between '>
+        <h1 className='text-[2.1rem] font-light mx-16 mt-2 px-12'>View Enquiry</h1>
+        <div className='mt-[1.3rem] px-12 mx-3'>
+          <Link href="/"><a className='border hover:bg-gray-200/25 px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Generate payment link</a></Link>
+          <Link href={`/admin/enq/`+data._id+'/edit'}><a className='border hover:bg-gray-200/25 px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Edit Enquiry</a></Link>
+          <span onClick={() => handleClick(data._id)} className='border hover:bg-gray-200/25 hover:cursor-pointer px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Delete Enquiry</span>
+        </div>
+      </div>
+      {
+        //Content
+      }
       <div className='CONTAINER mx-16 mt-5 rounded-sm shadow'>
-
-        <div className='HEADER bg-gray-700 flex flex-row rounded-t-sm py-4 px-12'>
+        <div className='HEADER bg-gray-700 flex flex-row justify-between rounded-t-sm py-4 px-12'>
           <div className='HEADER_TEXT text-white'>
-            <h1 className='text-[2.1rem] font-light'>View Enquiry</h1>
-            <h2 className='opacity-30 text-sm -mt-1 font-thin'>#{data._id}</h2>
+            <h2 className='opacity-60 text-sm mt-2 font-thin'>#{data._id}</h2>
           </div>
-          <div className='mt-5'>
-            <button className='bg-white border-none pb-1 pt-2 px-3 rounded-xl ml-24 text-sm uppercase font-medium'>{data.status == "REC" && 'Recieved'}</button>
+          <div className='flex flex-row mt-1 ml-20'>
+            <p className=' text-sm font-thin text-white mr-3 pt-1 opacity-60'>Status:</p>
+            <select onChange={handleStatus} className="text-center text-sm font-medium rounded-md select2 bg-white px-3 pt-[0.2rem] pb-[0.05rem] pr-[1.4rem] text-gray-700">
+              <option value="" className="">{dat(data.status)}</option>
+              {status.map(option => (
+                <option key={dat(option)} value={option} className="">
+                  {dat(option)}
+                </option>
+              ))}
+            </select>
           </div>
-          {
-            //EDIT/DELETE BUTTONS 
-          }
-          {
-            //Generate payment link
-          }
         </div>
 
         <div className='CONTENT w-full flex flex-row mx-auto text-gray-700'>
@@ -93,7 +131,7 @@ function ProfilePage({ data}) {
           </div>
 
           <div className='RIGHT w-1/2 my-10 px-12'>
-          <div className='CONTENT-ADDRESS mb-5'>
+            <div className='CONTENT-ADDRESS mb-5'>
                 <h2 className='text-xl opacity-50 font-extralight'>Address Details:</h2>
                 <div className='py-2 px-3'>
                   <div className='BOX-ITEM flex flex-row'>
@@ -109,19 +147,22 @@ function ProfilePage({ data}) {
                     <p className='font-light'>{data.postcode}</p>
                   </div>
                 </div>
-            </div>
+              </div>
+              <div className='DETAILS mb-5'>
+                <h2 className='text-xl opacity-50 font-extralight'>Additional Details:</h2>
+                <div className='py-2 px-3'>
+                  <div className='BOX-ITEM flex flex-row'>
+                    <h3 className='mr-5'>Details:</h3>
+                    <p className='font-light break-all'>{data.comments}</p>
+                  </div>
+                </div>
+              </div>
             {
             //GOOGLE MAPS 
             }
           </div>
         </div>
-
       </div>
-      {
-     // <span className='bg-green-800 hover:bg-green-700 p-2 rounded-md text-white mr-1'><Link href={`/admin/enq/`+data._id+`/edit`}>Edit </Link></span> 
-     // <span onClick={() => handleClick(data._id)} className='bg-red-800 hover:bg-red-700 p-2 rounded-md text-white hover:cursor-pointer'>DELETE</span> 
-   
-      }
     </>
   );
 }

@@ -33,11 +33,21 @@ export default async function handler(req, res) {
             try {
                 const email = req.body.email
                 const name = req.body.name
+                const mob = req.body.mob
+                const car = req.body.car
+                const street = req.body.street
+                const city = req.body.city
+                const postcode = req.body.postcode
                 await db.collection('enq').updateOne(
                     {_id: o_id},
                     { $set: { 
                         email: email,
                         name: name,
+                        mob: mob,
+                        car: car,
+                        street: street,
+                        city: city,
+                        postcode: postcode,
                     } }
                     );
                 client.close();
