@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import { connectToDatabase } from '../../../../lib/db';
+import { connectToDatabase } from '../../../../../lib/db';
 import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
@@ -30,10 +30,26 @@ export default async function handler(req, res) {
             break;
         case 'PUT':
             try {
-                const mail = await req.body
+                const email = req.body.email
+                const name = req.body.name
+                const mob = req.body.mob
+                const car = req.body.car
+                const street = req.body.street
+                const city = req.body.city
+                const postcode = req.body.postcode
+                const brand = req.body.brand
                 await db.collection('users').updateOne(
                     {_id: o_id},
-                    { $set: { email: mail } }
+                    { $set: {
+                        email: email,
+                        name: name,
+                        mob: mob,
+                        car: car,
+                        street: street,
+                        city: city,
+                        postcode: postcode,
+                        brand: brand,
+                    }}
                     );
                 res.status(200).json({ success: true });
             } catch(error) {
@@ -46,7 +62,8 @@ export default async function handler(req, res) {
                     {_id: o_id}
                     );
                 client.close();
-                res.status(200)
+                res.status(200).json({ success: true })
+                return { props: {} };
             } catch (error) {
                 res.status(400).json({ success: false });
             }

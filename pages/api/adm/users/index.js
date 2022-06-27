@@ -28,6 +28,39 @@ export default async function handler(req, res) {
                 res.status(400).json({ success: false });
             }
             break;
+        case 'POST':
+            try {
+                const data = req.body;
+  
+                const { email, name, street, city, postcode, car, brand , mob, role } = data;
+                if (
+                    !email ||
+                    !email.includes('@')
+                  ) {
+                    res.status(422).json({
+                      message:
+                        'Invalid input - password should also be at least 7 characters long.',
+                    });
+                    return;
+                  }
+
+                  const result = await db.collection('users').insertOne({
+                    name: name,
+                    email: email,
+                    street: street,
+                    city: city,
+                    postcode: postcode,
+                    car: car,
+                    brand: brand,
+                    mob: mob,
+                    role: role,
+                  });
+                
+                  res.status(200).json({ success: true, message: 'Created enq!' });
+                  client.close()
+            } catch (error) {
+                res.status(400).json({success: false})
+            }
         default:
             res.status(400).json({ success: false });
             break;

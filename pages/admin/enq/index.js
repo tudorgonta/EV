@@ -1,19 +1,28 @@
 import { getSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {AiOutlineRight} from 'react-icons/ai'
+import { useState } from 'react'
+import Confirm from '../../../components/admin/form/Confirm';
 
 function ProfilePage({data}) {
-  const router = useRouter()
-
+  
+  //Delete Pop Up
+  const [id,setId] =  useState('')
+  const [showModal, setShowModal] = useState(false);
+  
   async function handleClick(data) {
-    await fetch(`http://localhost:3000/api/adm/enq/${data}`, {
-      method: 'DELETE',
-    }).then((res) => {
-      if(res.ok) router.push("/admin/enq")
-    })
+    setId(data)
+    setShowModal(true)
   }
 
+  const close = () => {
+    setShowModal(false);
+  };
+  const deleteId = () => {
+    setId('');
+  };
+
+  //Status 
   function dat(data){
     switch(data) {
       case 'REC':
@@ -42,7 +51,7 @@ function ProfilePage({data}) {
       <div className='HEADER-TEXT flex flex-row justify-between '>
         <h1 className='text-[2.1rem] font-light mx-16 mt-2 px-12'>Enquiries:</h1>
         <div className='mt-[1.3rem] px-12 mx-3'>
-          <span onClick='' className='border hover:bg-gray-200/25 hover:cursor-pointer px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Add Enquiry</span>
+          <Link href='/admin/enq/add'><a  className='border hover:bg-gray-200/25 hover:cursor-pointer px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Add Enquiry</a></Link>
         </div>
       </div>
       <div className="overflow-hidden border-b border-gray-200 mx-16 mt-5 rounded-sm shadow">
@@ -75,6 +84,13 @@ function ProfilePage({data}) {
           </tbody>
         </table>
       </div>
+      {showModal &&
+        <Confirm 
+          id={id}
+          close={close}
+          deleteId={deleteId}
+        /> 
+      }
     </>
   );
 }

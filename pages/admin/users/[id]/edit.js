@@ -3,17 +3,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 
-function Edit({session, data}) {
-
-  async function handleClick(data) {
-    await fetch(`http://localhost:3000/api/adm/enq/${data}`, {
-      method: 'DELETE',
-    }).then((res) => {
-      if(res.ok) router.push("/admin/enq")
-    })
-  }
+function Edit({data}) {
 
     const router = useRouter();
+
+    async function handleClick(data) {
+      await fetch(`http://localhost:3000/api/adm/users/${data}`, {
+        method: 'DELETE',
+      }).then((res) => {
+        if(res.ok) router.push("/admin/users")
+      })
+    }
+
     const dat =  data.data
 
     const submitContact = async (event) => {
@@ -28,7 +29,7 @@ function Edit({session, data}) {
             city: event.target.city.value,
             postcode: event.target.postcode.value
         }
-        await fetch(`http://localhost:3000/api/adm/enq/${router.query.id}`, {
+        await fetch(`http://localhost:3000/api/adm/users/${router.query.id}`, {
             method: 'PUT',
             headers: {
                 "Accept": "application/json",
@@ -37,34 +38,32 @@ function Edit({session, data}) {
             body: JSON.stringify(d)
         }).then((res) => {
             // Do a fast client-side transition to the already prefetched dashboard page
-            if (res.ok) router.push(`/admin/enq/${router.query.id}`)
+            if (res.ok) router.push(`/admin/users`)
         })
     }
     
   return (
     <>
-    {dat != null ? (
-      <>
         <div className='BREADCRUMBS my-8 ml-10 opacity-75 text-gray-700'>
           <div className='flex flex-row text-sm'>
             <Link href="/admin"><a className='hover:text-gray-500'>Dashboard</a></Link>
             <AiOutlineRight size={'0.8em'} className="mt-[0.2rem] mx-2 text-gray-700" />
-            <Link href="/admin/enq"><a className='hover:text-gray-500'>Enquiries</a></Link>
+            <Link href="/admin/users"><a className='hover:text-gray-500'>Users</a></Link>
             <AiOutlineRight size={'0.8em'} className="mt-[0.2rem] mx-2 text-gray-700"/>
-            <Link href={`/admin/enq/`+dat._id}><a className='hover:text-gray-500'>View Enquiries</a></Link>
+            <Link href={`/admin/users/`+dat._id}><a className='hover:text-gray-500'>View User</a></Link>
             <AiOutlineRight size={'0.8em'} className="mt-[0.2rem] mx-2 text-gray-700"/>
-            <p className='font-medium'>Edit Enquiry</p>
+            <p className='font-medium'>Edit User</p>
           </div>
         </div>
         <form onSubmit={submitContact}>
         <div className='flex flex-row justify-between '>
           <div className='flex flex-row mx-7 mt-2 px-12'>
-            <Link href={`/admin/enq/`+dat._id}><a className='hover:text-gray-500'><AiOutlineLeft size={'1.3rem'} className="mt-[0.7rem] mr-3" /></a></Link>
-            <h1 className='text-[2.1rem] font-light'>Edit Enquiry</h1>
+            <Link href={`/admin/users/`+dat._id}><a className='hover:text-gray-500'><AiOutlineLeft size={'1.3rem'} className="mt-[0.7rem] mr-3" /></a></Link>
+            <h1 className='text-[2.1rem] font-light'>Edit User</h1>
           </div>
           <div className='mt-[0.8rem] px-12 mx-3 mb-2'>
             <button type="submit" className='border hover:bg-gray-200/25 hover:cursor-pointer px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Confirm Edit</button>
-            <span onClick={() => handleClick(dat._id)} className='border hover:bg-gray-200/25 hover:cursor-pointer px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Delete Enquiry</span>
+            <span onClick={() => handleClick(dat._id)} className='border hover:bg-gray-200/25 hover:cursor-pointer px-2 rounded-md h-full mr-10 text-gray-700 font-medium text-sm pb-1 pt-2'>Delete User</span>
           </div>
         </div>
         
@@ -131,23 +130,10 @@ function Edit({session, data}) {
                       </div>
                     </div>
                   </div>
-                  <div className='DETAILS mb-5'>
-                    <h2 className='text-xl opacity-50 font-extralight'>Additional Details:</h2>
-                    <div className='py-2 px-3'>
-                      <div className='BOX-ITEM flex flex-row'>
-                        <h3 className='pt-[0.42rem]'>Details:</h3>
-                        <textarea name="postcode" defaultValue={dat.comments} className='font-light ml-5 px-[0.8rem] pb-[0.05rem] pt-[0.35rem] border-gray-200 border rounded-md' />
-                      </div>
-                    </div>
-                  </div>
               </div>
             </div>
         </div>
       </form>
-    </> ) : 
-    (
-      <>Please click {!session ? (<a href="/ ">here</a>) : (<Link href={`/admin/enq/`+dat._id}>here</Link>)} to continue</>
-    )}
     </>
   );
 }
@@ -168,7 +154,7 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const id = params.id;
 
-  const res = await fetch(`http://localhost:3000/api/adm/enq/${id}`,{
+  const res = await fetch(`http://localhost:3000/api/adm/users/${id}`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -38,6 +38,8 @@ export default async function handler(req, res) {
                 const street = req.body.street
                 const city = req.body.city
                 const postcode = req.body.postcode
+                const comments = req.body.comments
+                const brand =  req.body.brand
                 await db.collection('enq').updateOne(
                     {_id: o_id},
                     { $set: { 
@@ -48,6 +50,8 @@ export default async function handler(req, res) {
                         street: street,
                         city: city,
                         postcode: postcode,
+                        comments: comments,
+                        brand: brand,
                     } }
                     );
                 client.close();
