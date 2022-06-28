@@ -1,12 +1,12 @@
 import { getSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-
+import { useState } from 'react'
 import {AiOutlineRight} from 'react-icons/ai'
+import Delete from '../../../../components/admin/form/Delete';
+import Select from '../../../../components/admin/form/Select';
 
 function ProfilePage({ data}) {
 
-  const router = useRouter()
   const status = ['User', 'Admin']
   for( var i = 0; i < status.length; i++){                             
     if ( status[i] == data.status) { 
@@ -15,30 +15,30 @@ function ProfilePage({ data}) {
     }
   }
 
-  async function handleClick(data) {
-    await fetch(`http://localhost:3000/api/adm/users/${data}`, {
-      method: 'DELETE',
-    }).then((res) => {
-      if(res.ok) router.push("/admin/users")
-    })
-  }
+    //Delete Pop Up
+    const [id,setId] =  useState('')
+    const [showModal, setShowModal] = useState('');
+
+    //Status Pop up
+    const [dataa, setDataa] = useState()
+    
+    async function handleClick(data) {
+      setId(data)
+      setShowModal('Delete')
+    }
+  
+    const close = () => {
+      setShowModal('');
+    };
+    const deleteId = () => {
+      setId('');
+    };
 
   const handleStatus = async event => {
-    handleSelect(data._id, event.target.value)
+    setId(data._id)
+    setDataa(event.target.value)
+    setShowModal('Status')
   };
-
-  async function handleSelect(id, data) {
-    await fetch(`http://localhost:3000/api/adm/users/${id}/role`, {
-      method: 'PUT',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      } ,
-      body: JSON.stringify(data)
-    }).then((res) => {
-      if(res.ok) router.push("/admin/users/"+id)
-    })
-  }
 
   function dat(data){
     switch(data) {
@@ -146,6 +146,22 @@ function ProfilePage({ data}) {
           </div>
         </div>
       </div>
+      {showModal == 'Delete' ? (
+        <Delete
+          id={id}
+          close={close}
+          deleteId={deleteId}
+          type='USR'
+        /> 
+      ) : showModal == 'Status' && (
+        <Select
+        id={id}
+        close={close}
+        deleteId={deleteId}
+        data={dataa}
+        type='USR'
+      /> 
+      )}
     </>
   );
 }

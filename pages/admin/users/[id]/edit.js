@@ -2,18 +2,27 @@ import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
+import Delete from '../../../../components/admin/form/Delete';
+import { useState } from 'react'
 
 function Edit({data}) {
 
     const router = useRouter();
-
+    //Delete Pop Up
+    const [id,setId] =  useState('')
+    const [showModal, setShowModal] = useState(false);
+    
     async function handleClick(data) {
-      await fetch(`http://localhost:3000/api/adm/users/${data}`, {
-        method: 'DELETE',
-      }).then((res) => {
-        if(res.ok) router.push("/admin/users")
-      })
+      setId(data)
+      setShowModal(true)
     }
+
+    const close = () => {
+      setShowModal(false);
+    };
+    const deleteId = () => {
+      setId('');
+    };
 
     const dat =  data.data
 
@@ -134,6 +143,14 @@ function Edit({data}) {
             </div>
         </div>
       </form>
+      {showModal &&
+        <Delete
+          id={id}
+          close={close}
+          deleteId={deleteId}
+          type='USR'
+        /> 
+      }
     </>
   );
 }

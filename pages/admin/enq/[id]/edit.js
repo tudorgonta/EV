@@ -2,19 +2,29 @@ import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
+import { useState } from 'react'
+import Delete from '../../../../components/admin/form/Delete';
 
 function Edit({session, data}) {
 
-  async function handleClick(data) {
-    await fetch(`http://localhost:3000/api/adm/enq/${data}`, {
-      method: 'DELETE',
-    }).then((res) => {
-      if(res.ok) router.push("/admin/enq")
-    })
-  }
-
     const router = useRouter();
     const dat =  data.data
+
+      //Delete Pop Up
+  const [id,setId] =  useState('')
+  const [showModal, setShowModal] = useState(false);
+  
+  async function handleClick(data) {
+    setId(data)
+    setShowModal(true)
+  }
+
+  const close = () => {
+    setShowModal(false);
+  };
+  const deleteId = () => {
+    setId('');
+  };
 
     const submitContact = async (event) => {
         event.preventDefault()
@@ -148,7 +158,16 @@ function Edit({session, data}) {
     (
       <>Please click {!session ? (<a href="/ ">here</a>) : (<Link href={`/admin/enq/`+dat._id}>here</Link>)} to continue</>
     )}
+    {showModal &&
+        <Delete 
+          id={id}
+          close={close}
+          deleteId={deleteId}
+          type='ENQ'
+        /> 
+      }
     </>
+    
   );
 }
 

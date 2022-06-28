@@ -2,7 +2,7 @@ import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import {AiOutlineRight} from 'react-icons/ai'
 import { useState } from 'react'
-import Confirm from '../../../components/admin/form/Confirm';
+import Delete from '../../../components/admin/form/Delete';
 
 function ProfilePage({data}) {
   
@@ -85,10 +85,11 @@ function ProfilePage({data}) {
         </table>
       </div>
       {showModal &&
-        <Confirm 
+        <Delete 
           id={id}
           close={close}
           deleteId={deleteId}
+          type='ENQ'
         /> 
       }
     </>
