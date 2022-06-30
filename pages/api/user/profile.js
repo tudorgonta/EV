@@ -1,11 +1,11 @@
 import { getSession } from 'next-auth/react';
-import { connectToDatabase } from '../../../../lib/db';
-import { hashPassword } from '../../../../lib/auth';
+import { connectToDatabase } from '../../../lib/db';
+import { hashPassword } from '../../../lib/auth';
 
 export default async function handler(req, res) {
 
     const session = await getSession({ req })
-    if (!session || session.user.role !== "Admin") {
+    if (!session) {
         res.status(401).json({ message: 'Not authenticated!' });
         return;
     }
@@ -19,8 +19,10 @@ export default async function handler(req, res) {
             try {
                 const userEmail = session.user.email;
                 const user = await db.collection('users').findOne({email: userEmail});
-                const data = JSON.parse(JSON.stringify(user))
-                res.status(200).json({ success: true, data: data })
+                const userData = JSON.parse(JSON.stringify(user))
+                const enq = await db.collection('enq').findOne({email: userEmail});
+                const enqData = JSON.parse(JSON.stringify(enq))
+                res.status(200).json({ success: true, user: userData, enq: enqData })
             } catch (error) {
                 console.log(error)
                 res.status(400).json({ success: false });

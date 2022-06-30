@@ -26,7 +26,6 @@ function AuthForm() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const { session } = useSession();
-  console.log(session)
 
   const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
@@ -40,7 +39,7 @@ function AuthForm() {
 
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-
+    console.log(enteredEmail)
     // optional: Add validation
 
     if (isLogin) {
@@ -49,7 +48,7 @@ function AuthForm() {
         email: enteredEmail,
         password: enteredPassword,
       });
-
+      console.log(result.error)
       if (!result.error) {
         // set some auth state
         router.replace('/');
