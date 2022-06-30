@@ -1,4 +1,8 @@
+import Cars from "./Cars";
+import Faq from "./Faq";
+import Grid from "./Grid";
 import Header from "./Header";
+import Roadmap from "./Roadmap";
 
 function StartingPageContent() {
   // Show Link to Login page if NOT auth
@@ -6,8 +10,11 @@ function StartingPageContent() {
   return (
     <>
     <Header />
-    <section className="relative text-3xl font-bold underline">
-      <h1>Welcome on Board!</h1>
+    <section className="text-gray-700">
+      <Roadmap />
+      <Grid />
+      <Faq />
+      <Cars/>
     </section>
     </>
   );

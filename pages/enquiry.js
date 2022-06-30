@@ -2,7 +2,7 @@ import Form from '../components/form/Form'
 
 function AuthForm({dat}) {
   return (
-    <section className="flex flex-col text-center mt-10">
+    <section className="flex flex-col text-center mt-10 w-10/12 mx-auto">
       <Form dat={dat} />
     </section>
   );

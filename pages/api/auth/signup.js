@@ -7,8 +7,8 @@ async function handler(req, res) {
   }
 
   const data = req.body;
-
-  const { email, password } = data;
+  
+  const { email, name, street, city, postcode, verifPass , car, brand , mob, password } = data;
 
   if (
     !email ||
@@ -38,8 +38,15 @@ async function handler(req, res) {
   const hashedPassword = await hashPassword(password);
 
   const result = await db.collection('users').insertOne({
+    name: name,
     email: email,
     password: hashedPassword,
+    mob: mob,
+    street: street,
+    city: city,
+    postcode: postcode,
+    car: car,
+    brand: brand,
     role: 'User',
   });
 

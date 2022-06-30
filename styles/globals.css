@@ -4,6 +4,34 @@
 @tailwind utilities;
 
 @layer components {
+  /* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #374051;
+}
+
+
+
+  .dropdown {
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+  }
+  .active {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+  }
+  .active-form {
+    max-height: 500px;
+    transition: max-height 1s ease-in;
+  }
   .select1 {
     -webkit-appearance: none;
     -moz-appearance: none;

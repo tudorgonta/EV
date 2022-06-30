@@ -17,6 +17,8 @@ const Form = ({dat}) => {
     brand: "",
     mob: "",
     status: "REC",
+    password: "",
+    verifPass: "",
   });
 
   const handleChange = (event) => {

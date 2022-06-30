@@ -53,7 +53,7 @@ const Step1 = (props) => {
 
   return (
     <>
-    <form className='flex flex-row w-full h-auto mx-auto my-5 mt-20 rounded px-10'>
+    <form className='flex flex-row w-full h-auto mx-auto my-5 mt-20 rounded px-10 ml-7'>
       <div className='w-1/3 flex flex-col'>
         <h1 className='mb-5 font-medium text-left text-4xl'>Your vehicle</h1>
         <h2 className='mb-10 text-left text-xl'>Please tell us about your vehicle, so we can check if you may be eligible for a grant to reduce the cost of your home charger</h2>
