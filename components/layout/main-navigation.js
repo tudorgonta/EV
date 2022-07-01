@@ -25,7 +25,7 @@ function MainNavigation() {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
       windowHeight > 100 ? (
-        setStickyClass('bg-[#FFFFFF] text-black shadow-md z-10'),
+        setStickyClass('bg-[#FFFFFF]/100 text-black shadow-md z-10'),
         setLinkClass('border-black')
         ) : (setStickyClass(''),
            setLinkClass('')
