@@ -1,9 +1,8 @@
 import { getSession } from 'next-auth/react';
 import UserProfile from '../components/profile/user-profile';
 
-function ProfilePage({data, dev}) {
+function ProfilePage({data}) {
   const {user, enq} = data
-  console.log(dev)
   return <UserProfile user={user} enq={enq} />;
 }
 
@@ -14,7 +13,6 @@ export async function getServerSideProps(context) {
   // get the current environment
   let dev = process.env.NODE_ENV !== 'production';
   let { DEV_URL, PROD_URL } = process.env;
-
 
   const user = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/profile`,{
     method: 'GET',
@@ -36,7 +34,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { session, data, dev },
+    props: { session, data },
   };
 }
 
