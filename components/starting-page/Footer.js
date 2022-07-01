@@ -10,7 +10,7 @@ const Footer = () => {
                 <a className="self-center text-2xl whitespace-nowrap text-white font-medium">EV Charging</a>
             </Link>
           </div>
-            <ul className="flex flex-wrap items-center mb-6 text-sm text-gray-400">
+            <ul className="flex flex-wrap items-center mb-2 text-sm text-gray-400">
                 <li>
                     <Link href="/"><a className="mr-4 hover:underline md:mr-6">Home</a></Link>
                 </li>
@@ -18,7 +18,13 @@ const Footer = () => {
                     <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Make an enquiry</a></Link>
                 </li>
                 <li>
-                    <Link href="/auth"><a className="hover:underline">Login</a></Link>
+                    <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Terms &amp; Conditions</a></Link>
+                </li>
+                <li>
+                    <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Privacy</a></Link>
+                </li>
+                <li>
+                    <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Policies</a></Link>
                 </li>
             </ul>
         </div>

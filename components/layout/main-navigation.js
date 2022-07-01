@@ -15,6 +15,7 @@ function MainNavigation() {
   }
 
   const [stickyClass, setStickyClass] = useState('');
+  const [linkClass, setLinkClass] = useState('');
 
   useEffect(() => {
     window.addEventListener('scroll', stickNavbar);
@@ -23,7 +24,12 @@ function MainNavigation() {
   const stickNavbar = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
-      windowHeight > 100 ? setStickyClass('bg-[#FFFFFF]/100 text-black shadow-md z-10') : setStickyClass('');
+      windowHeight > 100 ? (
+        setStickyClass('bg-[#FFFFFF] text-black shadow-md z-10'),
+        setLinkClass('border-black')
+        ) : (setStickyClass(''),
+           setLinkClass('')
+        )
     }
   };
 
@@ -38,24 +44,35 @@ function MainNavigation() {
       </Link>
       <nav>
         <ul className='flex flex-row'>
+            <li className='font-medium'>
+              <Link href='/enquiry'><a className={`hover:border-b transition-all duration-100 ${linkClass}`}>Make an Enquiry</a></Link>
+            </li>
+            {/*
+              <li className='pl-5'>
+                <Link href='/about'>About Us</Link>
+              </li>
+            */}
+            <li className='pl-5'>
+              <Link href='/contact'><a className={`hover:border-b transition-all duration-100 ${linkClass}`}>Contact Us</a></Link>
+            </li>
           {!session && !loading && (
-            <li>
-              <Link href='/auth'>Login</Link>
+            <li className='pl-5'>
+              <Link href='/auth'><a className={`hover:border-b transition-all duration-100 ${linkClass}`}>Login</a></Link>
             </li>
           )}
           {session && (
-            <li>
-              <Link href='/profile'>Profile</Link>
+            <li className='pl-5'>
+              <Link href='/profile'><a className={`hover:border-b transition-all duration-100 ${linkClass}`}>Profile</a></Link>
             </li>
           )}
           {session && session.user.role === "Admin" && (
             <li className='pl-5'>
-              <Link href='/admin'>Admin</Link>
+              <Link href='/admin'><a className={`hover:border-b transition-all duration-100 ${linkClass}`}>Admin</a></Link>
             </li>
           )}
           {session && (
             <li className='pl-5'>
-              <button onClick={logoutHandler}>Logout</button>
+              <a onClick={logoutHandler} className={`hover:cursor-pointer hover:border-b transition-all duration-100 ${linkClass}`}>Logout</a>
             </li>
           )}
         </ul>

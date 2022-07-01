@@ -16,7 +16,7 @@ const UserEnq = (props) => {
     }
   return (
     <>
-        <div className="flex flex-col rounded-md text-sm my-10 shadow-md">
+        <div className="flex flex-col rounded-md text-sm my-10 shadow-sm">
             <div className="flex flex-row justify-between bg-slate-700 text-white font-thin py-4 px-8 rounded-sm">
                 <span className="mt-[0.5rem]">Enquiry #{data._id}</span>
                 <div className='flex flex-row mt-1 ml-20 mr-5'>
