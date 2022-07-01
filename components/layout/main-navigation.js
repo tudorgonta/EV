@@ -19,6 +19,7 @@ function MainNavigation() {
 
   useEffect(() => {
     window.addEventListener('scroll', stickNavbar);
+    window.addEventListener('load', stickNavbar)
   }, []);
 
   const stickNavbar = () => {

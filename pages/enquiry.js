@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
   let dev = process.env.NODE_ENV !== 'production';
   let { DEV_URL, PROD_URL } = process.env;
 
-  const res = await fetch(`https://ev-two.vercel.app/api/user/cars/`,{
+  const res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/cars/`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
