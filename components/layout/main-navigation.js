@@ -25,7 +25,7 @@ function MainNavigation() {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
       windowHeight > 100 ? (
-        setStickyClass('bg-white text-black shadow-md z-10'),
+        setStickyClass('bg-white bg-opacity-100 text-black shadow-md z-10'),
         setLinkClass('border-black')
         ) : (setStickyClass(''),
            setLinkClass('')
@@ -35,7 +35,7 @@ function MainNavigation() {
 
   return (
    
-    <div className={router.pathname == "/" ? `${stickyClass} fixed w-full transition-all duration-300 text-white bg-black/20` : `fixed w-full bg-white/100 top-0 shadow-md z-10`}>
+    <div className={router.pathname == "/" ? `${stickyClass} fixed w-full transition-all duration-300 text-white bg-black bg-opacity-20` : `fixed w-full bg-white/100 top-0 shadow-md z-10`}>
     <header className="flex flex-row justify-between w-10/12 m-auto py-4">
       <Link href='/'>
         <a className=''>
