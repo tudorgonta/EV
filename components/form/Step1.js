@@ -1,15 +1,27 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router'
 import { useState } from 'react';
 import CarSvg from './carSvg';
 import Battery from './svg/Battery';
 import CarElec from './svg/CarElec';
 import Coins from './svg/Coins';
 import Socket from './svg/Socket';
+import Confirm from './Confirm'
 
 const Step1 = (props) => {
 
   //dat == all data about cars
   const {data, next, dat } = props;
+  const [showModal, setShowModal] = useState(true);
+  const router = useRouter()
+
+  const no = () => {
+    router.push('/')
+  };
+
+  const yes = () => {
+    setShowModal(false);
+  };
 
 
   //Get Brands
@@ -143,6 +155,12 @@ const Step1 = (props) => {
         </button>
       </div>
     </form>
+    {showModal &&
+        <Confirm
+          no={no}
+          yes={yes}
+        /> 
+      }
     </>
   );
 };

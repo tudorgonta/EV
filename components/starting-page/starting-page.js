@@ -1,3 +1,4 @@
+import Bar from "./Bar";
 import Cars from "./Cars";
 import Faq from "./Faq";
 import Grid from "./Grid";
@@ -10,6 +11,7 @@ function StartingPageContent() {
   return (
     <>
     <Header />
+    <Bar />
     <section className="text-gray-700">
       <Roadmap />
       <Grid />

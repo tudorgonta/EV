@@ -18,14 +18,16 @@ const Footer = () => {
                     <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Make an enquiry</a></Link>
                 </li>
                 <li>
-                    <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Terms &amp; Conditions</a></Link>
+                    <Link href="/tc"><a className="mr-4 hover:underline md:mr-6">Terms &amp; Conditions</a></Link>
+                </li>
+                {/* 
+                <li>
+                    <Link href="/privacy"><a className="mr-4 hover:underline md:mr-6">Privacy</a></Link>
                 </li>
                 <li>
-                    <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Privacy</a></Link>
+                    <Link href="/policies"><a className="mr-4 hover:underline md:mr-6">Policies</a></Link>
                 </li>
-                <li>
-                    <Link href="/enquiry"><a className="mr-4 hover:underline md:mr-6">Policies</a></Link>
-                </li>
+                */}
             </ul>
         </div>
         <hr className="my-6 border/20 opacity-20 sm:mx-auto lg:my-8" />
