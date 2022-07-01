@@ -35,7 +35,7 @@ function MainNavigation() {
 
   return (
    
-    <div className={router.pathname == "/" ? ` fixed w-full transition-all duration-300 ${stickyClass}` : `fixed w-full bg-white/100 text-black top-0 shadow-md z-10`}>
+    <div className={router.pathname == "/" ? `text-white fixed w-full transition-all duration-300 ${stickyClass}` : `fixed w-full bg-white/100 text-black top-0 shadow-md z-10`}>
     <header className="flex flex-row justify-between w-10/12 m-auto py-4">
       <Link href='/'>
         <a className=''>
