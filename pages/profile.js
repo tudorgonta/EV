@@ -15,7 +15,7 @@ export async function getServerSideProps(context) {
   let { DEV_URL, PROD_URL } = process.env;
 
 
-  const user = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/profile`,{
+  const user = await fetch(`/api/user/profile`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
