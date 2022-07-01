@@ -1,4 +1,8 @@
-const contact = () => {
+import { useRouter } from "next/router";
+
+const Contact = () => {
+
+  const router = useRouter();
 
     async function handleOnSubmit(e) {
         e.preventDefault();
@@ -13,7 +17,13 @@ const contact = () => {
         await fetch('/api/user/contact', {
           method: 'POST',
           body: JSON.stringify(formData)
-        });
+        }).then((res) => {
+          // Do a fast client-side transition to the already prefetched dashboard page
+          if (res.ok) router.push({
+            pathname: '/success',
+            query: { type: "contact" },
+          }, '/success')
+      })
       }
 
   return (
@@ -79,4 +89,4 @@ const contact = () => {
   )
 }
 
-export default contact
+export default Contact
