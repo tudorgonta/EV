@@ -100,7 +100,10 @@ export async function getServerSideProps(context) {
 
   const session = await getSession({ req: context.req });
 
-  const res = await fetch('http://localhost:3000/api/adm/enq/',{
+  let dev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
+
+  const res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/adm/enq/`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ function Edit() {
             status: "REC"
 
         }
-        await fetch(`http://localhost:3000/api/user/form`, {
+        await fetch(`/api/user/form`, {
             method: 'POST',
             headers: {
                 "Accept": "application/json",

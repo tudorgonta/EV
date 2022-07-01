@@ -5,7 +5,7 @@ const Delete = (props) => {
     const router = useRouter();
     async function handleClick() {
       if(type == 'ENQ'){
-        await fetch(`http://localhost:3000/api/adm/enq/${id}`, {
+        await fetch(`/api/adm/enq/${id}`, {
           method: 'DELETE',
         }).then((res) => {
           if(res.ok) {
@@ -15,7 +15,7 @@ const Delete = (props) => {
           }
         })
       } else if(type == 'USR') {
-        await fetch(`http://localhost:3000/api/adm/users/${id}`, {
+        await fetch(`/api/adm/users/${id}`, {
           method: 'DELETE',
         }).then((res) => {
           if(res.ok) {

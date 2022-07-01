@@ -10,7 +10,7 @@ function AuthForm({dat}) {
 
 export async function getServerSideProps(context) {
 
-  const res = await fetch('http://localhost:3000/api/user/cars',{
+  const res = await fetch('/api/user/cars',{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

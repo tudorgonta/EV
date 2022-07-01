@@ -199,7 +199,10 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const id = params.id;
 
-  const res = await fetch(`http://localhost:3000/api/adm/enq/${id}`,{
+  let dev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
+
+  const res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/adm/enq/${id}`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -10,7 +10,12 @@ export async function getServerSideProps(context) {
 
   const session = await getSession({ req: context.req });
 
-  const user = await fetch(`http://localhost:3000/api/user/profile`,{
+  // get the current environment
+  let dev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
+
+
+  const user = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/profile`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

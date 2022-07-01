@@ -22,7 +22,7 @@ function Edit({data}) {
             postcode: event.target.postcode.value,
             password: event.target.password.value
         }
-        await fetch(`http://localhost:3000/api/adm/users/profile`, {
+        await fetch(`/api/adm/users/profile`, {
             method: 'PATCH',
             headers: {
                 "Accept": "application/json",
@@ -147,7 +147,10 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const res = await fetch(`http://localhost:3000/api/adm/users/profile`,{
+  let dev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
+
+  const res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/adm/users/profile`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

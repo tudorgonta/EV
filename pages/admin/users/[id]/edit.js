@@ -38,7 +38,7 @@ function Edit({data}) {
             city: event.target.city.value,
             postcode: event.target.postcode.value
         }
-        await fetch(`http://localhost:3000/api/adm/users/${router.query.id}`, {
+        await fetch(`/api/adm/users/${router.query.id}`, {
             method: 'PUT',
             headers: {
                 "Accept": "application/json",
@@ -171,7 +171,10 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const id = params.id;
 
-  const res = await fetch(`http://localhost:3000/api/adm/users/${id}`,{
+  let dev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
+
+  const res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/adm/users/${id}`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

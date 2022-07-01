@@ -6,7 +6,7 @@ const Select = (props) => {
 
     async function handleSelect() {
         if(type == 'ENQ'){
-            await fetch(`http://localhost:3000/api/adm/enq/${id}/status`, {
+            await fetch(`/api/adm/enq/${id}/status`, {
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
@@ -21,7 +21,7 @@ const Select = (props) => {
                 }
             })
         } else if(type == 'USR') {
-            await fetch(`http://localhost:3000/api/adm/users/${id}/role`, {
+            await fetch(`/api/adm/users/${id}/role`, {
                 method: 'PUT',
                 headers: {
                   "Accept": "application/json",
