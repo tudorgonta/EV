@@ -10,7 +10,10 @@ function AuthForm({dat}) {
 
 export async function getServerSideProps(context) {
 
-  const res = await fetch('/api/user/cars/',{
+  let dev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
+
+  const res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/cars/`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
