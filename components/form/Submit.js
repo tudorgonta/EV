@@ -2,41 +2,6 @@ import {useState} from 'react'
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
-async function createForm(dat) {
-    const response = await fetch('/api/user/form', {
-      method: 'POST',
-      body: JSON.stringify(dat),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  
-    const data = await response.json();
-  
-    if (!response.ok) {
-      throw new Error(data.message || 'Something went wrong!');
-    }
-  
-    return data;
-  }
-
-async function createUser(dat) {
-  const response = await fetch('/api/auth/signup', {
-    method: 'POST',
-    body: JSON.stringify(dat),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-
-  const data = await response.json()
-  if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong!');
-  }
-
-  return data;
-}
-
 function Submit(props) {
   const { data: session } = useSession();
   const { data, handleChange, back } = props;
@@ -47,6 +12,34 @@ function Submit(props) {
   const [passVerifMessage, setPassVerifMessage] = useState("");
   const passValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(`${data.password}`)
   const passEqual = data.verifPass.includes(data.password)
+
+
+  async function createForm(dat) {
+    await fetch('/api/user/form', {
+      method: 'POST',
+      body: JSON.stringify(dat),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      console.log(res)
+      // Do a fast client-side transition to the already prefetched dashboard page
+      if (res.ok) router.push({
+        pathname: '/success',
+        query: { type: "form" },
+      }, '/success')
+  })
+  }
+
+  async function createUser(dat) {
+    await fetch('/api/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify(dat),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
 
   const handlePass = async () => {
     if(!passValid){
@@ -71,7 +64,6 @@ function Submit(props) {
           await createUser(data)
         }
         await createForm(data)
-        router.push(`/profile`)
       } catch (error) {
         console.log(error);
       }

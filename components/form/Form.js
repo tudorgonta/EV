@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ProgressBarr from "./ProgressBar";
 import Step1 from "./Step1";
+import Step15 from "./Step15";
 import Step2 from "./Step2";
 import Submit from "./Submit";
 
@@ -66,6 +67,15 @@ const Form = ({dat}) => {
         />
         </>
       );
+    case 3:
+      return (
+        <>
+        <div className="w-1/2 mx-auto mt-5">
+          <ProgressBarr currentStep={currentStep} handleClick={handleClick}/>
+        </div>
+        <Step15 />
+        </>
+      )
     default:
       return (
         <>

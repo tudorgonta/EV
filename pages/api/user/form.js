@@ -24,21 +24,24 @@ async function handler(req, res) {
 
   const db = client.db();
 
-  const result = await db.collection('enq').insertOne({
-    name: name,
-    email: email,
-    street: street,
-    city: city,
-    postcode: postcode,
-    comments: comments,
-    car: car,
-    brand: brand,
-    mob: mob,
-    status: status,
-  });
+  try {
+    await db.collection('enq').insertOne({
+      name: name,
+      email: email,
+      street: street,
+      city: city,
+      postcode: postcode,
+      comments: comments,
+      car: car,
+      brand: brand,
+      mob: mob,
+      status: status,
+    })
 
-  res.status(201).json({ message: 'Created enq!' });
-  client.close();
+    res.status(200).json({ success: true })
+  } catch(error){
+    res.status(400).json({ success: false });
+  }
 }
 
 export default handler;

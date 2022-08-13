@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Success = () => {
@@ -8,9 +8,29 @@ const Success = () => {
     const handle = (data) => {
         switch(data) {
             case "contact":
-                return (<p>asdada</p>)
+                return (
+                  <div className="w-full">
+                    <div className="w-1/3 mx-auto text-center p-5 bg-gray-50 rounded-sm shadow">
+                      <p>Email sent succesfully, click <Link href="/"><a className="font-medium hover:underline">here</a></Link> to return to the main page.</p>
+                    </div>
+                  </div>
+                )
+            case "form":
+                return (
+                  <div className="w-full">
+                    <div className="w-1/3 mx-auto text-center p-5 bg-gray-50 rounded-sm shadow">
+                      <p>Thank you for sending the enquiry, we will be in touch shortly, click <Link href="/"><a className="font-medium hover:underline">here</a></Link> to return to the main page.</p>
+                    </div>
+                  </div>
+                )
             default:
-                return (<p>hehey</p>)
+                return (
+                  <div className="w-full">
+                    <div className="w-1/3 mx-auto text-center p-5 bg-gray-50 rounded-sm shadow">
+                      <p>Oops, wrong page, <Link href="/"><a className="font-medium hover:underline">here</a></Link> to return to the main page.</p>
+                    </div>
+                  </div>
+                )
         }
     }
   return (
