@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 const Delete = (props) => {
     const {id, close, deleteId, type} = props;
-    console.log(type)
     const router = useRouter();
     async function handleClick() {
       if(type == 'ENQ'){
