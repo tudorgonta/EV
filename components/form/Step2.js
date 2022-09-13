@@ -1,4 +1,5 @@
-import CartRight from "./cartRight";
+import CartRight from "./CartRight";
+
 import Input from "./Input";
 const Step2 = (props) => {
   const { data, handleChange, next, back } = props;

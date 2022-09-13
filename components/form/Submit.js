@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import CartRight from './cartRight';
+import CartRight from './CartRight';
 import Input from './Input';
 
 function Submit(props) {

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/cart.slice';
 import { removeFromCart } from '../../redux/cart.slice';
 import { setSelected } from '../../redux/progress.slice';
-import CartRight from './cartRight';
+import CartRight from './CartRight';
 
 const Step15 = (props) => {
   const { next, back } = props;
