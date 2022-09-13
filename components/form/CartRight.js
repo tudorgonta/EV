@@ -15,6 +15,8 @@ const CartRight = (props) => {
   const { next } = props;
   const dispatch = useDispatch();
 
+  const test =0;
+
   const cart = useSelector((state) => state.cart);
   const progress = useSelector((state) => state.progress)
 
