@@ -15,7 +15,6 @@ const CartRight = (props) => {
   const { next } = props;
   const dispatch = useDispatch();
 
-  const test =0;
 
   const cart = useSelector((state) => state.cart);
   const progress = useSelector((state) => state.progress)
@@ -29,11 +28,11 @@ const CartRight = (props) => {
     setInstalType(prop)
   }
 
-  const getTotalPrice = () => {
+  const getTotalPrice = useCallback(() => {
     if(instalType === 'instal')
       return cart[1].price+installPrice
     return cart[1].price
-  };
+  }, [cart, instalType]);
 
   useEffect(() => {
     if(cart[1] != undefined) {
@@ -45,7 +44,7 @@ const CartRight = (props) => {
         .then((res) => res.json())
         .then((data) => setClientSecret(data.clientSecret));
     }
-  }, []);
+  }, [cart, getTotalPrice]);
 
   const appearance = {
     theme: 'stripe',

@@ -14,7 +14,7 @@ const Success = () => {
     useEffect(() => {
       dispatch(removeFromCart(cart[0]))
       dispatch(removeCar(car[0]))
-    }, []);
+    }, [car, cart, dispatch]);
 
     const handle = (data) => {
         switch(data) {
