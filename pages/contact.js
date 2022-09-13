@@ -27,12 +27,11 @@ const Contact = () => {
       }
 
   return (
-    <>
-     <div className='w-5/6 m-auto text-center font-Rubik '>
-        <div className='mt-10 mb-5 flex flex-col lg:flex-row md:flex-row'>
-          
-          <div className='w-full md:w-1/2 lg:w-1/2 bg-slate-50 rounded-sm text-left p-7'>
-            <div className="mt-5">
+    <div className="w-full">
+     <div className='w-5/6 mx-auto text-center font-Rubik my-20 '>
+        <div className='flex flex-col justify-center lg:flex-row md:flex-row'>
+          <div className='w-full md:w-1/2 lg:w-1/2 bg-slate-50 rounded-sm text-left p-7 self-start'>
+            <div className="my-12">
             <h1 className='text-4xl text-center font-medium'>Get in touch</h1>
             <h2 className='text-xl text-center mb-5'>Fill in the form to start a conversation</h2>
             <div className='flex flex-row mb-2'>
@@ -75,17 +74,17 @@ const Contact = () => {
 
               <div className='mb-4 flex flex-col'>
                 <label htmlFor="message" className='mb-2'>Message: </label>
-                <textarea name='message' className="px-3 py-2 border-solid border-2 border-slate-200 rounded-md"
+                <textarea name='message' className="px-3 pb-12 pt-2 border-solid border-2 border-slate-200 rounded-md"
                   placeholder="Text..."
                 />
               </div>
                   
-              <input type='submit' className="px-3 py-2 cursor-pointer bg-neutral-500 text-white hover:bg-neutral-700 rounded-md uppercase font-Roboto tracking-wide"/>
+              <input type='submit' className="px-3 py-2 cursor-pointer bg-gray-700 text-white font-medium hover:bg-gray-600 rounded-md uppercase font-Roboto tracking-widest duration-300"/>
             </form>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

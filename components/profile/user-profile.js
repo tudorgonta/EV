@@ -16,7 +16,7 @@ function UserProfile(props) {
       <div className='CONTAINER w-[85%] mx-auto rounded-sm shadow'>
         <div className='HEADER bg-gray-700 flex flex-row justify-center rounded-t-sm py-4 px-12'>
           <div className='HEADER_TEXT text-white text-center'>
-            <h2 className='opacity-100 text-xl mt-2 font-thin'>Hello, {user.name}</h2>
+            <h2 className='opacity-100 text-2xl mt-2 font-thin'>Hello, {user.name}</h2>
           </div>
         </div>
 

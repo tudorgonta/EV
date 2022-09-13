@@ -9,8 +9,10 @@ const ProgressBarr = props => {
   if (props.currentStep === 1) {
     stepPercentage = 0;
   } else if (props.currentStep === 2) {
-    stepPercentage = 50;
+    stepPercentage = 33.3335;
   } else if (props.currentStep === 3) {
+    stepPercentage = 66.667;
+  } else if (props.currentStep === 4) {
     stepPercentage = 100;
   } else {
     stepPercentage = 0;
@@ -37,6 +39,19 @@ const ProgressBarr = props => {
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
           >
             {props.currentStep === 3 ? (
+                <button value={2} onClick={handleClick}>{index + 1}</button>
+            ) : (
+                index+1
+            )}
+          </div>
+        )}
+      </Step>
+      <Step>
+        {({ accomplished, index }) => (
+          <div
+            className={`indexedStep ${accomplished ? "accomplished" : null}`}
+          >
+            {props.currentStep === 4 ? (
                 <button value={2} onClick={handleClick}>{index + 1}</button>
             ) : (
                 index+1

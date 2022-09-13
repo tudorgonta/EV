@@ -8,10 +8,15 @@ import Coins from './svg/Coins';
 import Socket from './svg/Socket';
 import Confirm from './Confirm'
 
+import { useDispatch } from 'react-redux';
+import { addCar } from '../../redux/cart.slice';
+import { addToChargers } from '../../redux/chargers.slice';
+import {  removeSelected } from '../../redux/progress.slice';
+
 const Step1 = (props) => {
 
   //dat == all data about cars
-  const {data, next, dat } = props;
+  const {data, next, dat, chargers } = props;
   const [showModal, setShowModal] = useState(true);
   const router = useRouter()
 
@@ -23,6 +28,13 @@ const Step1 = (props) => {
     setShowModal(false);
   };
 
+  const submitCharger = (e) => {
+    data.socket=e
+    const results = chargers.filter(obj => {
+      return obj.socket === data.socket;
+    });
+    dispatch(addToChargers(results))
+  }
 
   //Get Brands
   const uniqueIds = [];
@@ -41,10 +53,26 @@ const Step1 = (props) => {
   });
 
   //Select
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState('');
   const [second, setSecond] = useState('');
   const [nex, setNex] = useState('Choose a car to continue')
 
+   //Additional Car Info
+   const info = dat.find(obj => {
+    return obj.car === second;
+  })
+
+  const dispatch = useDispatch();
+
+  const carDetails = {
+    brand: selected,
+    model: second,
+  }
+  const combined = (e) => {
+    dispatch(addCar(carDetails))
+    dispatch(removeSelected())
+    next()
+  }
   const handleFirst = event => {
     setSelected(event.target.value)
     data.brand=event.target.value
@@ -57,12 +85,6 @@ const Step1 = (props) => {
     setNex('Continue')
     data.car=event.target.value
   }
-
-  //Additional Car Info
-  const info = dat.find(obj => {
-    return obj.car === second;
-  })
-
   return (
     <>
     <form className='flex flex-row w-full h-auto mx-auto my-5 mt-20 rounded px-10 ml-7'>
@@ -123,7 +145,7 @@ const Step1 = (props) => {
               <div className='w-1/4 text-center'>
                 <Socket className="mx-auto my-0 fill-gray-700 mb-2" />
                 <h5 className='text-md opacity-70'>Socket type</h5>
-                <h3 className='text-xl'>{info.socket}</h3>
+                <h3 className='text-xl'>{info.socket}{submitCharger(info.socket)}</h3>
               </div>
               <div className='w-1/4 text-center'>
                 <Battery className="mx-auto my-0 fill-gray-700 mb-2" />
@@ -150,7 +172,7 @@ const Step1 = (props) => {
         )
         }
         <div></div>
-        <button onClick={next} disabled={!second} className="w-1/2 py-2 px-2 text-white rounded disabled:bg-gray-500 hover:bg-gray-600 bg-gray-700 disabled:mt-5 transition-opacity">
+        <button onClick={combined} disabled={!second} className="w-1/2 py-2 px-2 text-white rounded disabled:bg-gray-500 hover:bg-gray-600 bg-gray-700 disabled:mt-5 transition-opacity">
           {nex}
         </button>
       </div>

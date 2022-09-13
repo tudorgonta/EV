@@ -2,8 +2,8 @@ import {useState} from 'react'
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai'
 
 const FaqItem = (props) => {
-    const {title, desc} = props
-    const [isOpen,setisOpen] = useState(false)
+  const {title, desc} = props
+  const [isOpen,setisOpen] = useState(false)
   return (
     <div className='QUEST border-b p-3 my-4 hover:cursor-pointer' onClick={() => setisOpen(!isOpen)}>
         <div className='flex flex-row justify-between'>

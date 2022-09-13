@@ -10,16 +10,16 @@ function Layout(props) {
   return (
     <Fragment>
       {router.pathname.includes('/admin') ? (
-       <div className="flex">
+        <div className="flex">
           <AdminNavigation />
           <main className="w-10/12 ml-56 font-Roboto">{props.children}</main>
         </div>
         ) : (
-        <>
+        <div className='flex flex-col justify-between'>
           <MainNavigation />
           <main className={`font-Roboto ${router.pathname == '/' ? 'mt-0' : 'mt-24'}`}>{props.children}</main>
           <Footer />
-        </>
+        </div>
       )
       }
     </Fragment>

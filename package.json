@@ -9,19 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "@sendgrid/mail": "^7.7.0",
+    "@stripe/react-stripe-js": "^1.10.0",
+    "@stripe/stripe-js": "^1.36.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.30.0",
     "dotenv": "^16.0.1",
     "mongodb": "^4.0.1",
-    "next": "^12.1.6",
+    "next": "^12.3.0",
     "next-auth": "^4.0.6",
     "next-images": "^1.8.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.4.0",
+    "react-redux": "^8.0.2",
     "react-select": "^5.3.2",
-    "react-step-progress-bar": "^1.0.3"
+    "react-step-progress-bar": "^1.0.3",
+    "stripe": "^9.16.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",

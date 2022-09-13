@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+
 const Header = () => {
     const styling = {
     backgroundImage: `url('https://res.cloudinary.com/dxmyxyyay/image/upload/v1656528596/ather-energy-EaDLbQr-k04-unsplash_roi5xw.jpg')`,
