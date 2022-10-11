@@ -1,33 +1,32 @@
 import {useState} from 'react'
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+//import { useRouter } from 'next/router';
+//import { useSession } from 'next-auth/react';
 import CartRight from './CartRight';
 import Input from './Input';
+import { useSelector } from 'react-redux';
 
 function Submit(props) {
-  const { data: session } = useSession();
+  //const { data: session } = useSession();
   const { data, handleChange, back } = props;
-  const router = useRouter();
-
-  const [createAcc, setCreateAcc] = useState(false);
+  //const router = useRouter();
+  const cart = useSelector((state) => state.cart);
+  //const [createAcc, setCreateAcc] = useState(false);
   const [terms, setTerms] = useState(true);
 
-  async function createForm(dat) {
-    await fetch('/api/user/form', {
-      method: 'POST',
-      body: JSON.stringify(dat),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => {
-      console.log(res)
-      // Do a fast client-side transition to the already prefetched dashboard page
-      if (res.ok) router.push({
-        pathname: '/success',
-        query: { type: "form" },
-      }, '/success')
-  })
+  /*const customerData = {
+    name: data.name,
+    mob: data.mob,
+    email: data.email,
+    street: data.street,
+    city: data.city,
+    postcode: data.postcode,
+    comments: data.comments,
+    status: data.status,
+    password: data.password,
+    verifPass: data.verifPass,
+    charger_id: data.charger_id,
   }
+
 
   async function createUser(dat) {
     await fetch('/api/auth/signup', {
@@ -45,7 +44,7 @@ function Submit(props) {
         if(createAcc){
           await createUser(data)
         }
-        await createForm(data)
+        await dispatch(addData(customerData))
       } catch (error) {
         console.log(error);
       }
@@ -53,6 +52,7 @@ function Submit(props) {
   const handleCheck = () => {
     setCreateAcc(current => !current);
   }
+  */
   const handleTerms = () => {
     setTerms(current => !current);
   }
@@ -61,7 +61,7 @@ function Submit(props) {
       <h1 className='mb-5 font-medium text-center text-4xl mt-16'>Review details</h1>
       <div className='CONTAINER flex flex-row'>
         <div className='InnerContainer flex flex-row flex-wrap w-4/6 text-left self-start'>
-          <div className='w-1/2'>
+          <div className='w-1/2 opacity-80'>
             <Input 
               type='text'
               name='name'
@@ -123,7 +123,7 @@ function Submit(props) {
           <Input 
             type='text'
             name='carbrand'
-            value={data.brand}
+            value={cart[0].brand}
             onChange={handleChange}
             onInput="* This field is required"
             placeholder="Car Brand"
@@ -132,7 +132,7 @@ function Submit(props) {
           <Input 
             type='text'
             name='carmodel'
-            value={data.car}
+            value={cart[0].model}
             onChange={handleChange}
             onInput="* This field is required"
             placeholder="Car Model"
@@ -140,7 +140,7 @@ function Submit(props) {
           />
         </div>
         <div className='w-1/2'>
-        <Input 
+        {/*<Input 
             type='textarea'
             name='comments'
             value={data.comments}
@@ -148,9 +148,9 @@ function Submit(props) {
             onInput="* This field is required"
             placeholder="Additional Comments"
             disabled={false}
-          />
+  /> */}
         </div>
-        { !session && (
+        {/* !session && (
           <div className='ACCOUNT mt-12 w-full'>
             <label htmlFor="toogleA" className="flex items-center cursor-pointer justify-center">
               <div className=" ml-3 mr-8 opacity-60 text-gray-700 font-medium">
@@ -194,7 +194,7 @@ function Submit(props) {
               </div>
             </div>
           </div>
-        )}
+        ) */}
         <label htmlFor="toogleB" className="w-full flex items-center cursor-pointer justify-center mb-8 mt-8">
           <div className="ml-3 mr-8 opacity-60 text-gray-700 font-medium">
             Confirm that i have read Terms and Conditions.
@@ -215,14 +215,7 @@ function Submit(props) {
         </div>
         </div>
         <CartRight next={next} />
-        
       </div>
-
-      <form onSubmit={submitHandler}>
-        <div className="flex-row mt-5">
-          <button type="submit" className="w-1/3 py-2 px-2 text-white rounded disabled:bg-gray-500 hover:bg-gray-600 bg-gray-700 mt-5 duration-300">Submit</button>
-        </div>
-      </form>
     </div>
   );
 };

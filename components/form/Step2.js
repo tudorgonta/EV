@@ -62,7 +62,7 @@ const Step2 = (props) => {
           <button onClick={back} className="w-1/2 py-2 px-2 text-white rounded disabled:bg-gray-500 hover:bg-gray-600 bg-gray-700 mt-5 mr-5 duration-300">Back</button> 
         </div>
         </div>
-        <CartRight next={next} />
+        <CartRight next={next} data={data} />
       </div>
     </form>
     </>

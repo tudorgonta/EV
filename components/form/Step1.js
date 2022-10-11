@@ -29,9 +29,8 @@ const Step1 = (props) => {
   };
 
   const submitCharger = (e) => {
-    data.socket=e
     const results = chargers.filter(obj => {
-      return obj.socket === data.socket;
+      return obj.socket === e;
     });
     dispatch(addToChargers(results))
   }
@@ -43,6 +42,7 @@ const Step1 = (props) => {
         item.brand
     )
   })
+  
   const brands = brandsResult.filter(element => {
     const isDuplicate = uniqueIds.includes(element);
     if (!isDuplicate) {
@@ -75,7 +75,6 @@ const Step1 = (props) => {
   }
   const handleFirst = event => {
     setSelected(event.target.value)
-    data.brand=event.target.value
     setSecond('')
     setNex('Choose a car model to continue')
   };
@@ -83,7 +82,6 @@ const Step1 = (props) => {
   const handleSecond = event => {
     setSecond(event.target.value)
     setNex('Continue')
-    data.car=event.target.value
   }
   return (
     <>

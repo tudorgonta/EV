@@ -7,7 +7,7 @@ async function handler(req, res) {
 
   const data = req.body;
   
-  const { email, name, street, city, postcode, comments, car, brand , mob, status } = data;
+  const { email, name, street, city, postcode, mob, status } = data;
 
   if (
     !email ||
@@ -31,9 +31,6 @@ async function handler(req, res) {
       street: street,
       city: city,
       postcode: postcode,
-      comments: comments,
-      car: car,
-      brand: brand,
       mob: mob,
       status: status,
     })

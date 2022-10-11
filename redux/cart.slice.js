@@ -14,17 +14,17 @@ const cartSlice = createSlice({
         state.push({ ...action.payload, quantity: 1, payType: 'Later' });
       }
     },
-    incrementQuantity: (state, action) => {
-      const item = state.find((item) => item._id === action.payload);
-      item.quantity++;
-    },
     addCar: (state, action) => {
       state.length = 0
-      state.push({ ...action.payload });
+      state.push({ ...action.payload })
     },
     changePayTypee: (state, action) => {
       state[1].payType = action.payload
     },
+    addData: (state, action) => {
+      state.push({ ...action.payload })
+    },
+    /*
     decrementQuantity: (state, action) => {
       const item = state.find((item) => item._id === action.payload);
       if (item.quantity === 1) {
@@ -34,6 +34,10 @@ const cartSlice = createSlice({
         item.quantity--;
       }
     },
+    incrementQuantity: (state, action) => {
+      const item = state.find((item) => item._id === action.payload);
+      item.quantity++;
+    }, */
     removeFromCart: (state, action) => {
       const index = state.findIndex((item) => item._id === action.payload);
       state.splice(index, 1);
@@ -49,5 +53,6 @@ export const {
   decrementQuantity,
   removeFromCart,
   changePayTypee,
-  addCar
+  addCar,
+  addData,
 } = cartSlice.actions;

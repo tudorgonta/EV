@@ -90,7 +90,7 @@ function MainNavigation() {
               </li>
             )}
             <li className='pl-5'>
-              <Link href='/cart'><a className={`hover:border-b transition-all duration-100 ${linkClass}`}>Cart ({getItemsCount()})</a></Link>
+              <Link href='/enquiry'><a className={`hover:border-b transition-all duration-100 ${linkClass}`}>Cart ({getItemsCount()})</a></Link>
             </li>
             {session && (
               <li className='pl-5'>

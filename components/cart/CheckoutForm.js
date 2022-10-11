@@ -1,22 +1,20 @@
-
 import {
   PaymentElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
-
+import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useRouter } from "next/router";
 
 export default function CheckoutForm() {
 
+  const cart = useSelector((state) => state.cart);
   const stripe = useStripe();
   const elements = useElements();
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
 
   useEffect(() => {
     if (!stripe) {
@@ -49,9 +47,20 @@ export default function CheckoutForm() {
     });
   }, [stripe]);
 
+  async function createForm() {
+    await fetch('/api/user/form', {
+      method: 'POST',
+      body: JSON.stringify(cart[2]),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    createForm()
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
@@ -64,10 +73,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: router.push({
-          pathname: '/success',
-          query: { type: "payment" },
-        }, '/success')
+        return_url: `http://localhost:3000/success`,
       },
     });
 
@@ -81,7 +87,6 @@ export default function CheckoutForm() {
     } else {
       setMessage("An unexpected error occurred.");
     }
-
     setIsLoading(false);
   };
 

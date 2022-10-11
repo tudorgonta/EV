@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  addData,
   removeFromCart,
   changePayTypee,
 } from '../../redux/cart.slice';
@@ -12,10 +14,10 @@ import CheckoutForm from '../cart/CheckoutForm';
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const CartRight = (props) => {
-  const { next } = props;
+  const { next, data } = props;
   const dispatch = useDispatch();
 
-
+  const router = useRouter();
   const cart = useSelector((state) => state.cart);
   const progress = useSelector((state) => state.progress)
 
@@ -35,7 +37,7 @@ const CartRight = (props) => {
   }, [cart, instalType]);
 
   useEffect(() => {
-    if(cart[1] != undefined) {
+    if(progress[0].step === 4 ) {
       fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,7 +46,7 @@ const CartRight = (props) => {
         .then((res) => res.json())
         .then((data) => setClientSecret(data.clientSecret));
     }
-  }, [cart, getTotalPrice]);
+  }, [progress, getTotalPrice]);
 
   const appearance = {
     theme: 'stripe',
@@ -61,6 +63,48 @@ const CartRight = (props) => {
     clientSecret,
     appearance,
   };
+
+
+  const combined = () => {
+    if(progress[0].step === 3) {
+      const customerData = {
+        name: data.name,
+        mob: data.mob,
+        email: data.email,
+        street: data.street,
+        city: data.city,
+        postcode: data.postcode,
+        comments: data.comments,
+        status: data.status,
+        password: data.password,
+        verifPass: data.verifPass,
+      }
+      dispatch(addData(customerData))
+    }
+    next();
+  }
+
+  async function createForm() {
+    await fetch('/api/user/form', {
+      method: 'POST',
+      body: JSON.stringify(cart[2]),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      console.log(res)
+      // Do a fast client-side transition to the already prefetched dashboard page
+      if (res.ok) router.push({
+        pathname: '/success',
+        query: { type: "form" },
+      }, '/success')
+  })
+  }
+
+  async function submitHandler(e) {
+    e.preventDefault()
+    createForm()
+  }
 
   return (
     <div className='RIGHT w-2/6 bg-gray-700 rounded-md h-[100%] text-white py-10'>
@@ -130,7 +174,9 @@ const CartRight = (props) => {
                   <hr className='my-6'></hr>
                   {
                   //Payment option
-                  }
+                  }               
+                  {progress[0].step === 4 ?(
+                  <>
                   <div className='flex rounded-3xl text-black text-left bg-white my-3 duration-300 mb-7'>
                     <span className={(cart[1].payType === 'Pay' || cart[1].payType === 'Card' || cart[1].payType === 'Paypal') ? ('bg-gray-100 text-center rounded-l-2xl w-1/2 px-4 py-2 pt-3 text-[0.95em] duration-300') : ('bg-white cursor-pointer text-center rounded-l-2xl w-1/2 px-4 py-2 pt-3 text-[0.95em] duration-300')} onClick={() => dispatch(changePayTypee('Pay'))}>Pay Now</span>
                     <span className={cart[1].payType === 'Later' ? ('bg-gray-100 text-center rounded-r-2xl w-1/2 px-4 py-2 pt-3 text-[0.95em] duration-300') : ('bg-white cursor-pointer text-center rounded-r-2xl w-1/2 px-4 py-2 pt-3 text-[0.95em] duration-300')} onClick={() => dispatch(changePayTypee('Later'))}>Pay Later</span>
@@ -151,16 +197,20 @@ const CartRight = (props) => {
                       </label>
                     </div>
                   </>}
-                {progress[0].step === 4 ?(
-                  <>
-                    {clientSecret && (
+                    {(clientSecret && cart[1].payType === 'Card') && (
                       <Elements options={options} stripe={stripePromise}>
                         <CheckoutForm />
                       </Elements>
                     )}
+                    {cart[1].payType === 'Later' && (
+                      <button onClick={submitHandler} className="w-1/3 py-2 px-2 text-black rounded disabled:bg-gray-500 hover:bg-gray-200 bg-white duration-300">Submit</button>
+                    )}
+                    {cart[1].payType === 'Paypal' && (
+                      <p>~Not available right now.</p>
+                    )}
                   </>) : (
                   <>
-                    <button onClick={next} className="w-1/3 py-2 px-2 text-black rounded disabled:bg-gray-500 hover:bg-gray-200 bg-white duration-300">Next</button>
+                    <button onClick={combined} className="w-1/3 py-2 px-2 text-black rounded disabled:bg-gray-500 hover:bg-gray-200 bg-white duration-300">Next</button>
                   </>)
                 }
             </div>

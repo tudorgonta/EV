@@ -6,7 +6,7 @@ import Step2 from "./Step2";
 import Submit from "./Submit";
 import { useSelector, useDispatch } from 'react-redux';
 import { addStep, removeStep, setStep } from "../../redux/progress.slice";
-import { addToChargers } from "../../redux/chargers.slice";
+
 
 
 const Form = ({dat, chargers}) => {
@@ -20,9 +20,6 @@ const Form = ({dat, chargers}) => {
     city: "",
     postcode: "",
     comments: "",
-    car: "",    
-    brand: "",
-    socket: "",
     mob: "",
     status: "REC",
     password: "",
@@ -31,7 +28,6 @@ const Form = ({dat, chargers}) => {
   });
 
   const handleChange = (event) => {
-
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,

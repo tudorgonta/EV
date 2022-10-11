@@ -47,7 +47,7 @@ const Success = () => {
                 return (
                   <div className="w-full">
                     <div className="w-1/3 mx-auto text-center p-5 bg-gray-50 rounded-sm shadow">
-                      <p>Oops, wrong page, <Link href="/"><a className="font-medium hover:underline">here</a></Link> to return to the main page.</p>
+                    <p>Thank you for sending the enquiry, we will be in touch shortly, click <Link href="/"><a className="font-medium hover:underline">here</a></Link> to return to the main page.</p>
                     </div>
                   </div>
                 )
