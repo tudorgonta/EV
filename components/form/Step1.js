@@ -16,7 +16,7 @@ import {  removeSelected } from '../../redux/progress.slice';
 const Step1 = (props) => {
 
   //dat == all data about cars
-  const {data, next, dat, chargers } = props;
+  const { next, dat, chargers } = props;
   const [showModal, setShowModal] = useState(true);
   const router = useRouter()
 

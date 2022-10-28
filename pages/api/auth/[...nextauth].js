@@ -42,7 +42,7 @@ export default NextAuth({
   ],
   callbacks: {  
     
-    async session({ session, token }) {  
+    async session({ session }) {  
       //Connect Database
       const client = await connectToDatabase();
       const usersCollection = client.db().collection('users');

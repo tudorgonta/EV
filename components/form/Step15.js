@@ -32,13 +32,28 @@ const Step15 = (props) => {
                     <div className={`${selectedCheck(charger._id) ? "opacity-20" : "opacity-90 hover:opacity-100 "} flex flex-col border border-[2px] bg-white border-gray-600 hover:drop-shadow-lg w-[48.5%] rounded-md mr-[0.6em] py-8 px-6 text-lg mb-[0.6em] duration-500`}>
                       <h3 className='text-2xl font-medium'>{charger.name}</h3>
                       <div className='mx-auto'>
-                        <Image src={charger.pic}
-                        alt="Charger"
-                        height={300} width={250}
-                        object="cover"
-                        className='rounded-sm'
-                        />
+                        {
+                          
+                          // height={100} width={75} -- thumb sizes pic
+                          // height={300} width={250} -- hero pic size
+                          // Display charger pictures (carousel with thumbs and arrows), alt tag == image.tag
+                        }
+                        {Object.values(charger.pic)?.map((image) => {
+                            return (
+                              <Image src={image.link}
+                              alt={image.tag}
+                              height={100} width={75}
+                              object="responsive"
+                              className='rounded-sm'
+                          />
+                            )
+                          })}
                       </div>
+                      {
+                        //Charger variants
+
+
+                      }
                       <p className='my-1 font-medium text-xl'>£{charger.price}</p>
                       <p className='font-light text-base my-3 min-h-[15%]'>{charger.desc}</p>
                       <p className='text-base font-base'>Charger type: {charger.socket}*</p>
