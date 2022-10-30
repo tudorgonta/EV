@@ -15,7 +15,7 @@ function Layout(props) {
           <main className="w-10/12 ml-56 font-Roboto">{props.children}</main>
         </div>
         ) : (
-        <div className='flex flex-col justify-between'>
+        <div className='flex flex-col justify-between h-[100vh]'>
           <MainNavigation />
           <main className={`font-Roboto ${router.pathname == '/' ? 'mt-0' : 'mt-24'}`}>{props.children}</main>
           <Footer />
